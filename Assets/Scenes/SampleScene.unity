@@ -991,7 +991,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh8728
+  m_Name: pb_Mesh16104
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -8898,6 +8898,19 @@ MonoBehaviour:
   MaxWobble: 0.03
   WobbleSpeed: 1
   Recovery: 1
+--- !u!114 &1615253264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615253258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 196e4f1cd26b65342b2497cdce4bc1b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fillAmount: 0
 --- !u!64 &1615253265
 MeshCollider:
   m_ObjectHideFlags: 0

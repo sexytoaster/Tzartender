@@ -7,10 +7,12 @@ public class waterPour : MonoBehaviour
     public GameObject drop;
     public GameObject bottle;
     public float speed = 1000f;
+    Vector3 v3Velocity;
     // Start is called before the first frame update
     void Start()
     {
-        
+        Rigidbody rb = GetComponent<Rigidbody>();
+        v3Velocity = rb.velocity;
     }
 
     // Update is called once per frame
@@ -21,7 +23,7 @@ public class waterPour : MonoBehaviour
 
             GameObject instDrop = Instantiate(drop, transform.position, Quaternion.identity) as GameObject;
             Rigidbody instDropRigidbody = instDrop.GetComponent<Rigidbody>();
-            instDropRigidbody.AddForce(bottle.transform.up * speed);
+            instDropRigidbody.AddForce((bottle.transform.up * speed) + v3Velocity);
         }
 
     }

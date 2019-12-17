@@ -6,6 +6,7 @@ public class detectLiquid : MonoBehaviour
 {
     Renderer rend;
     public float fillAmount;
+    public float fillOffset;
 
     private void Start()
     {
@@ -17,7 +18,7 @@ public class detectLiquid : MonoBehaviour
         //Check for a match with the name on colliding object
         if (collision.gameObject.name == "DropVodka")
         {
-            fillAmount = (float)fillAmount - (float).00001;
+            fillAmount = (float)fillAmount - (float)fillOffset;
             //If the GameObject's name matches, send changing fill variable to the shader to output visual representation
             rend.material.SetFloat("fillAmount", fillAmount);
             

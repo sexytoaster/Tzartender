@@ -4,7 +4,7 @@
     {
         tint ("Tint", Color) = (1,1,1,1)
         mainTex ("Texture", 2D) = "white" {}
-        fillAmount ("Fill Amount", Range(.43000,.60000)) = 0.0
+        fillAmount ("Fill Amount", Range(.43,.58)) = 0.0
 		offsetColor ("Offset Top Colour", Color) = (1,1,1,1)
 		[HideInInspector] topColor ("Top Color", Color) = (1,1,1,1)
         [HideInInspector] wobbleX ("WobbleX", Range(-1,1)) = 0.0
@@ -18,7 +18,6 @@
  
         Pass
         {
-         //Zwrite On
          Cull Off // we want all faces
          AlphaToMask On // transparency
  
@@ -68,7 +67,7 @@
             float3 worldPosX= worldPos.xyz;
             // rotate around XZ
             float3 worldPosZ = float3 (worldPosX.y, worldPosX.z, worldPosX.x);     
-            // cuse wobble script to define wobble of liquid
+            //// cuse wobble script to define wobble of liquid
             float3 worldPosAdjusted = worldPos + (worldPosX  * wobbleX)+ (worldPosZ* wobbleZ);
             // what level liquid is at
             o.fillEdge =  worldPosAdjusted.y + fillAmount;

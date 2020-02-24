@@ -22,6 +22,7 @@ public class InstructionLoader : MonoBehaviour
     public List<float> individualDrinkValues;
     public List<float> displayedIndividualDrinkValues;
 
+    public DrinkInstructions temp;
     //indexes for the drink
     public int rumIndex;
     public int vodkaIndex;
@@ -52,7 +53,7 @@ public class InstructionLoader : MonoBehaviour
         //index for keeping track of generated drinks, should change later nb****
         var index = 0;
         //get reference to glass values
-        currentGlassValues = glass.GetComponentInChildren<detectLiquid>().currentValues;
+        currentGlassValues = glass.GetComponentInChildren<wobble>().currentValues;
         //testing
         DrinkInstructions temp = drinks[0];
         if (temp.Rum != 0)
@@ -85,21 +86,9 @@ public class InstructionLoader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DrinkInstructions temp = drinks[0];
-
-        if (temp.Rum != 0)
-        {
-            individualDrinkValues[rumIndex] = currentGlassValues.Rum;
-        }
-        if (temp.Vodka != 0)
-        {
-            individualDrinkValues[vodkaIndex] = currentGlassValues.Vodka;
-
-        }
-        if (temp.Coke != 0)
-        {
-            individualDrinkValues[cokeIndex] = currentGlassValues.Coke;
-        }
+        temp = drinks[0];
+        StartCoroutine("UpdateValues");
+        
         string combindedString = string.Join("\n", individualDrinkValues.ToArray());
         combindedString.Trim('"');
         currentValues.text = combindedString;
@@ -122,5 +111,24 @@ public class InstructionLoader : MonoBehaviour
             drinks.Add(drink.DrinkID, drink);
         }
         
+    }
+
+    //update the current drink values on the game screen
+    IEnumerator UpdateValues()
+    {
+        if (temp.Rum != 0)
+        {
+            individualDrinkValues[rumIndex] = currentGlassValues.Rum;
+        }
+        if (temp.Vodka != 0)
+        {
+            individualDrinkValues[vodkaIndex] = currentGlassValues.Vodka;
+
+        }
+        if (temp.Coke != 0)
+        {
+            individualDrinkValues[cokeIndex] = currentGlassValues.Coke;
+        }
+        yield return null;
     }
 }

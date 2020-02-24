@@ -19,8 +19,8 @@ public class wobble : MonoBehaviour
     Vector3 velocity;
     Vector3 lastRot;
     Vector3 angularVelocity;
-    
-    
+
+    public DrinkInstructions currentValues;
 
     // Use this for initialization
     void Start()
@@ -58,6 +58,10 @@ public class wobble : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
+        if (collision.gameObject.name == "DropVodka(Clone)")
+        {
+            currentValues.Vodka += 1f;
+        }
         if (collision.gameObject.tag == "Liquid")
         {
             fillAmount = fillAmount - (float).0001;

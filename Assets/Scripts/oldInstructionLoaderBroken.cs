@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Valve.Newtonsoft.Json;
 
-public class InstructionLoader : MonoBehaviour
+public class oldInstructionLoaderBroken : MonoBehaviour
 {
     //storing drink contents in a dictionary - faster to load from than list
     public Dictionary<int, DrinkInstructions> drinks;
@@ -30,11 +30,10 @@ public class InstructionLoader : MonoBehaviour
     public int vodkaIndex;
     public int cokeIndex;
 
-    public int testIndex;
+    public int testIndex = 0;
 
     private void Awake()
     {
-        testIndex = -1;
         //create a new dictionary containing our drinks
         drinks = new Dictionary<int, DrinkInstructions>();
         //parse json into dict
@@ -55,24 +54,24 @@ public class InstructionLoader : MonoBehaviour
     void Start()
     {
         drinkMat = GameObject.FindGameObjectWithTag("Finished");
-        //index for keeping track of generated drinks, should change later nb****
-        //var index = 0;
+        StartCoroutine("PickDrink");
         //get reference to glass values
         currentGlassValues = glass.GetComponentInChildren<wobble>().currentValues;
-        StartCoroutine("PickDrink");
-        
+        //index for keeping track of generated drinks, should change later nb****
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
         StartCoroutine("UpdateValues");
-        if (drinkMat.GetComponent<DrinkFinished>().EnteredTrigger == true)
+        /*if (drinkMat.GetComponent<DrinkFinished>().EnteredTrigger == true)
         {
             StartCoroutine("PickDrink");
             drinkMat.GetComponent<DrinkFinished>().EnteredTrigger = false;
-        }
+        }*/
+
+
         string combindedString = string.Join("\n", individualDrinkValues.ToArray());
         combindedString.Trim('"');
         currentValues.text = combindedString;
@@ -97,14 +96,12 @@ public class InstructionLoader : MonoBehaviour
         }
 
     }
+
     IEnumerator PickDrink()
     {
         //index for keeping track of generated drinks, should change later nb****
         var index = 0;
         //testing
-        Debug.LogError("Pick before " + testIndex);
-        testIndex +=1;
-        Debug.LogError("Pick after " + testIndex);
         individualDrink.Clear();
         individualDrinkValues.Clear();
         DrinkInstructions temp = drinks[testIndex];
@@ -133,13 +130,18 @@ public class InstructionLoader : MonoBehaviour
         string combindedString = string.Join("\n", individualDrink.ToArray());
         combindedString.Trim('"');
         instructions.text = combindedString;
-        Debug.LogError("Pick " + testIndex);
+        testIndex++;
+        if (testIndex == 2)
+        {
+            testIndex = 0;
+        }
         yield return null;
     }
+
     //update the current drink values on the game screen
     IEnumerator UpdateValues()
     {
-        temp = drinks[testIndex];
+        Debug.LogWarning("IT SHOULD WORK");
         if (temp.Rum != 0)
         {
             individualDrinkValues[rumIndex] = currentGlassValues.Rum;
@@ -153,8 +155,6 @@ public class InstructionLoader : MonoBehaviour
         {
             individualDrinkValues[cokeIndex] = currentGlassValues.Coke;
         }
-        Debug.LogError("Values " + testIndex);
-
         yield return null;
     }
 }

@@ -30,6 +30,8 @@ public class wobble : MonoBehaviour
     }
     private void Update()
     {
+        currentValues.Vodka += 1f;
+        currentValues.Coke += 1f;
         time += Time.deltaTime;
         // decrease wobble 
         wobbleAddX = Mathf.Lerp(wobbleAddX, 0, Time.deltaTime * (Recovery));

@@ -4,7 +4,7 @@
     {
         tint ("Tint", Color) = (1,1,1,1)
         mainTex ("Texture", 2D) = "white" {}
-        fillAmount ("Fill Amount", Range(.43,.59)) = 0.0
+        fillAmount ("Fill Amount", Range(.43,.58)) = 0.0
 		offsetColor ("Offset Top Colour", Color) = (1,1,1,1)
 		[HideInInspector] topColor ("Top Color", Color) = (1,1,1,1)
         [HideInInspector] wobbleX ("WobbleX", Range(-1,1)) = 0.0
@@ -14,21 +14,20 @@
  
     SubShader
     {
-        Tags {"Queue"="Geometry"  "DisableBatching" = "True" }
+        Tags {"Queue"="Transparent"  "DisableBatching" = "True" "RenderType"="Transparent"}
  
         Pass
         {
          Cull Off // we want all faces
          AlphaToMask On // transparency
- 
+		 Blend SrcAlpha OneMinusSrcAlpha
          CGPROGRAM
  
  
          #pragma vertex vert
          #pragma fragment frag
          // make fog work
-         #pragma multi_compile_fog
-           
+         #pragma multi_compile_fog         
          #include "UnityCG.cginc"
  
          struct appdata

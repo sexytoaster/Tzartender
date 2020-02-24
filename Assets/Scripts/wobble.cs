@@ -62,9 +62,13 @@ public class wobble : MonoBehaviour
         {
             currentValues.Vodka += 1f;
         }
+        if (collision.gameObject.name == "DropCoke(Clone)")
+        {
+            currentValues.Coke += 1f;
+        }
         if (collision.gameObject.tag == "Liquid")
         {
-            fillAmount = fillAmount - (float).0001;
+            fillAmount = fillAmount - (float).0002;
             //If the GameObject's name matches the one you suggest, decrease ammount hidden
             rend.material.SetFloat("fillAmount", fillAmount);
             Destroy(collision.gameObject);

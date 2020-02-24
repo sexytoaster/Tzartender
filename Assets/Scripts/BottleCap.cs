@@ -5,7 +5,7 @@ using UnityEngine;
 public class BottleCap : MonoBehaviour
 {
     public Rigidbody capRB;
-    int speed = 10;
+    int speed = 20;
     float torque;
     // Start is called before the first frame update
     void Start()

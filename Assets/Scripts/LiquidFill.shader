@@ -4,7 +4,7 @@
     {
         tint ("Tint", Color) = (1,1,1,1)
         mainTex ("Texture", 2D) = "white" {}
-        fillAmount ("Fill Amount", Range(.43,.58)) = 0.0
+        fillAmount ("Fill Amount", Range(.43,.59)) = 0.0
 		offsetColor ("Offset Top Colour", Color) = (1,1,1,1)
 		[HideInInspector] topColor ("Top Color", Color) = (1,1,1,1)
         [HideInInspector] wobbleX ("WobbleX", Range(-1,1)) = 0.0

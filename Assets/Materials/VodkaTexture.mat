@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: fillablePintGlass
+  m_Name: VodkaTexture
   m_Shader: {fileID: 4800000, guid: 1abf3ee026eb1af499c5ed45f00c3ad0, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -94,7 +94,7 @@ Material:
     - _WobbleX: 0
     - _WobbleZ: 0
     - _ZWrite: 1
-    - fillAmount: 0.59
+    - fillAmount: 0.58
     - rim: 0
     - rimPower: 0
     - wobbleX: 0

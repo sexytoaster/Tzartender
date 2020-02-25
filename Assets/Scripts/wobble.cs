@@ -30,8 +30,8 @@ public class wobble : MonoBehaviour
     }
     private void Update()
     {
-        currentValues.Vodka += 1f;
-        currentValues.Coke += 1f;
+        //currentValues.Vodka += 1f;
+        //currentValues.Coke += 1f;
         time += Time.deltaTime;
         // decrease wobble 
         wobbleAddX = Mathf.Lerp(wobbleAddX, 0, Time.deltaTime * (Recovery));
@@ -62,15 +62,17 @@ public class wobble : MonoBehaviour
     {
         if (collision.gameObject.name == "DropVodka(Clone)")
         {
-            currentValues.Vodka += 1f;
+            currentValues.Vodka += .1f;
+            fillAmount = fillAmount - (float).000025;
         }
         if (collision.gameObject.name == "DropCoke(Clone)")
         {
             currentValues.Coke += 1f;
+            fillAmount = fillAmount - (float).00025;
         }
         if (collision.gameObject.tag == "Liquid")
         {
-            fillAmount = fillAmount - (float).0002;
+            
             //If the GameObject's name matches the one you suggest, decrease ammount hidden
             rend.material.SetFloat("fillAmount", fillAmount);
             Destroy(collision.gameObject);

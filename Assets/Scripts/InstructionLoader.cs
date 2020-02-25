@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,8 @@ public class InstructionLoader : MonoBehaviour
     //two text boxes for displaying the values
     public Text instructions;
     public Text currentValues;
+    public Text drinkName;
+    public Text currentScore;
     //reference to the glass
     public GameObject glass;
     //reference to the mat
@@ -24,6 +27,12 @@ public class InstructionLoader : MonoBehaviour
     public List<float> individualDrinkValues;
     public List<float> displayedIndividualDrinkValues;
 
+    //a max score that will be subtracted from for time and also accuracy
+    public int baseScore;
+    //min score is the minimum score a player can get
+    public int minScore;
+    //total score of the player
+    public int totalScore;
     public DrinkInstructions temp;
     //indexes for the drink
     public int rumIndex;
@@ -34,7 +43,10 @@ public class InstructionLoader : MonoBehaviour
 
     private void Awake()
     {
-        testIndex = -1;
+        currentScore.text = "Score: " + totalScore.ToString();
+        baseScore = 100;
+        minScore = 20;
+        totalScore = 0;
         //create a new dictionary containing our drinks
         drinks = new Dictionary<int, DrinkInstructions>();
         //parse json into dict
@@ -70,6 +82,7 @@ public class InstructionLoader : MonoBehaviour
         StartCoroutine("UpdateValues");
         if (drinkMat.GetComponent<DrinkFinished>().EnteredTrigger == true)
         {
+            StartCoroutine("Score");
             StartCoroutine("PickDrink");
             drinkMat.GetComponent<DrinkFinished>().EnteredTrigger = false;
         }
@@ -102,11 +115,10 @@ public class InstructionLoader : MonoBehaviour
         //index for keeping track of generated drinks, should change later nb****
         var index = 0;
         //testing
-        Debug.LogError("Pick before " + testIndex);
-        testIndex +=1;
-        Debug.LogError("Pick after " + testIndex);
+        testIndex = UnityEngine.Random.Range(0, drinks.Count);
         individualDrink.Clear();
         individualDrinkValues.Clear();
+        //currentGlassValues.Clear();
         DrinkInstructions temp = drinks[testIndex];
         if (temp.Rum != 0)
         {
@@ -133,7 +145,7 @@ public class InstructionLoader : MonoBehaviour
         string combindedString = string.Join("\n", individualDrink.ToArray());
         combindedString.Trim('"');
         instructions.text = combindedString;
-        Debug.LogError("Pick " + testIndex);
+        drinkName.text = temp.Name;
         yield return null;
     }
     //update the current drink values on the game screen
@@ -153,8 +165,37 @@ public class InstructionLoader : MonoBehaviour
         {
             individualDrinkValues[cokeIndex] = currentGlassValues.Coke;
         }
-        Debug.LogError("Values " + testIndex);
 
+        yield return null;
+    }
+    IEnumerator Score()
+    {
+        temp = drinks[testIndex];
+        if (temp.Rum != 0)
+        {
+            baseScore -= Math.Abs((int)temp.Rum - (int)Math.Floor(currentGlassValues.Rum));
+            Debug.LogError("Score Rum = " + baseScore);
+        }
+        if (temp.Vodka != 0)
+        {
+            baseScore -= Math.Abs((int)temp.Vodka - (int)Math.Floor(currentGlassValues.Vodka));
+            Debug.LogError("Score Vodka = " + baseScore);
+
+        }
+        if (temp.Coke != 0)
+        {
+            baseScore -= (Math.Abs((int)temp.Coke - (int)Math.Floor(currentGlassValues.Coke)))/10;
+            Debug.LogError("Score Coke = " + baseScore);
+        }
+        if (baseScore > minScore)
+        {
+            totalScore += baseScore;
+        }
+        else
+        {
+            totalScore += minScore;
+        }
+        currentScore.text = "Score: " + totalScore.ToString();
         yield return null;
     }
 }

@@ -6,7 +6,7 @@ public class BottleCap : MonoBehaviour
 {
     public Rigidbody capRB;
     int speed = 20;
-    float torque;
+    float torque = 500000;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +27,8 @@ public class BottleCap : MonoBehaviour
             capRB.isKinematic = false;
             float turn = Input.GetAxis("Horizontal");
             capRB.AddRelativeForce(transform.position + transform.up * speed, ForceMode.Force);
-            capRB.AddRelativeTorque(transform.up * torque * turn);
+            capRB.AddTorque(transform.right * torque);
+            capRB.AddTorque(transform.up * torque);
         }
 
     }

@@ -18,7 +18,7 @@ public class waterPour : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (transform.parent.name == "MixerBottle")
+        if (transform.parent.name == "MixerBottle" || transform.parent.name == "MixerBottle(Clone)")
         {
             bool cap = transform.parent.gameObject.GetComponentInChildren<BottleCap>().capRB.isKinematic;
             if (cap == false)

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Liquid
   - Finished
+  - FxTemporaire
+  - projectile
   layers:
   - Default
   - TransparentFX
@@ -23,7 +25,7 @@ TagManager:
   - Ground
   - Finished
   - Cap
-  - 
+  - Button
   - 
   - 
   - 

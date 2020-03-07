@@ -1,6 +1,10 @@
 {
 	"Drinks":[
 		"Drinks/JSONData/VodkaCoke.json",
-		"Drinks/JSONData/RumCoke.json"
+		"Drinks/JSONData/RumCoke.json",
+		"Drinks/JSONData/Mojito.json",
+		"Drinks/JSONData/CubaLibre.json",
+		"Drinks/JSONData/WhiskeyGinger.json",
+		"Drinks/JSONData/GinTonic.json"
 	]
 }

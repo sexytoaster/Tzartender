@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class destroyMe : MonoBehaviour {
-
-    public float lifetime = 5.0f;
-    void Awake()
+    void OnCollisionEnter(Collision hit)
     {
-        Destroy(gameObject, lifetime);
+        if (hit.gameObject.tag != "Liquid")
+        {
+            Destroy(gameObject);
+        }
     }
 }

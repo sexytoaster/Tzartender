@@ -9,6 +9,9 @@ public class DrinkFinished : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         if (other.name == "PintGlass")
+        {
             EnteredTrigger = true;
+
+        }
     }
 }

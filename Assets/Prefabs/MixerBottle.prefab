@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 2380706778361096994}
   m_Layer: 15
   m_Name: cap
-  m_TagString: Untagged
+  m_TagString: Liquid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -779,7 +779,7 @@ GameObject:
   - component: {fileID: 2380706778820941412}
   m_Layer: 12
   m_Name: emmitterTop
-  m_TagString: Untagged
+  m_TagString: Liquid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -849,7 +849,7 @@ GameObject:
   - component: {fileID: 2380706779261341563}
   m_Layer: 12
   m_Name: MixerBottle
-  m_TagString: Untagged
+  m_TagString: Liquid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

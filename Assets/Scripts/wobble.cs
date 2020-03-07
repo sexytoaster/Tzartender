@@ -63,7 +63,7 @@ public class wobble : MonoBehaviour
         if (collision.gameObject.name == "DropVodka(Clone)")
         {
             currentValues.Vodka += .1f;
-            fillAmount = fillAmount - (float).000025;
+            fillAmount = fillAmount - (float).00005;
         }
         if (collision.gameObject.name == "DropCoke(Clone)")
         {

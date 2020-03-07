@@ -113,34 +113,97 @@ public class InstructionLoader : MonoBehaviour
     IEnumerator PickDrink()
     {
         //index for keeping track of generated drinks, should change later nb****
-        var index = 0;
+    var index = 0;
         //testing
         testIndex = UnityEngine.Random.Range(0, drinks.Count);
         individualDrink.Clear();
         individualDrinkValues.Clear();
         //currentGlassValues.Clear();
         DrinkInstructions temp = drinks[testIndex];
-        if (temp.Rum != 0)
-        {
-            rumIndex = index;
-            index++;
-            individualDrink.Add("Rum: " + temp.Rum.ToString());
-            individualDrinkValues.Add(currentGlassValues.Rum);
-        }
         if (temp.Vodka != 0)
         {
-            vodkaIndex = index;
+            //vodkaIndex = index;
             index++;
             individualDrink.Add("Vodka: " + temp.Vodka.ToString());
             individualDrinkValues.Add(currentGlassValues.Vodka);
 
         }
+        if (temp.Rum != 0)
+        {
+            //rumIndex = index;
+            index++;
+            individualDrink.Add("Rum: " + temp.Rum.ToString());
+            individualDrinkValues.Add(currentGlassValues.Rum);
+        }
+        if (temp.Tequila != 0)
+        {
+           //rumIndex = index;
+            index++;
+            individualDrink.Add("Tequila: " + temp.Tequila.ToString());
+            individualDrinkValues.Add(currentGlassValues.Tequila);
+        }
+        if (temp.Gin != 0)
+        {
+           // rumIndex = index;
+            index++;
+            individualDrink.Add("Gin: " + temp.Gin.ToString());
+            individualDrinkValues.Add(currentGlassValues.Gin);
+        }
+        if (temp.Whiskey != 0)
+        {
+            //rumIndex = index;
+            index++;
+            individualDrink.Add("Whiskey: " + temp.Whiskey.ToString());
+            individualDrinkValues.Add(currentGlassValues.Whiskey);
+        }
         if (temp.Coke != 0)
         {
-            cokeIndex = index;
+            //cokeIndex = index;
             index++;
             individualDrink.Add("Coke: " + temp.Coke.ToString());
             individualDrinkValues.Add(currentGlassValues.Coke);
+        }
+        if (temp.Tonic != 0)
+        {
+            //rumIndex = index;
+            index++;
+            individualDrink.Add("Tonic: " + temp.Tonic.ToString());
+            individualDrinkValues.Add(currentGlassValues.Tonic);
+        }
+        if (temp.Soda != 0)
+        {
+            //rumIndex = index;
+            index++;
+            individualDrink.Add("Soda: " + temp.Soda.ToString());
+            individualDrinkValues.Add(currentGlassValues.Soda);
+        }
+        if (temp.Ginger != 0)
+        {
+           //rumIndex = index;
+            index++;
+            individualDrink.Add("Ginger: " + temp.Ginger.ToString());
+            individualDrinkValues.Add(currentGlassValues.Ginger);
+        }
+        if (temp.Orange != 0)
+        {
+            //rumIndex = index;
+            index++;
+            individualDrink.Add("Orange: " + temp.Orange.ToString());
+            individualDrinkValues.Add(currentGlassValues.Orange);
+        }
+        if (temp.LimeJuice != 0)
+        {
+            //rumIndex = index;
+            index++;
+            individualDrink.Add("Lime: " + temp.LimeJuice.ToString());
+            individualDrinkValues.Add(currentGlassValues.LimeJuice);
+        }
+        if (temp.LemonJuice != 0)
+        {
+            //rumIndex = index;
+            index++;
+            individualDrink.Add("Rum: " + temp.LemonJuice.ToString());
+            individualDrinkValues.Add(currentGlassValues.LemonJuice);
         }
         string combindedString = string.Join("\n", individualDrink.ToArray());
         combindedString.Trim('"');
@@ -151,19 +214,57 @@ public class InstructionLoader : MonoBehaviour
     //update the current drink values on the game screen
     IEnumerator UpdateValues()
     {
+        var index = 0;
         temp = drinks[testIndex];
-        if (temp.Rum != 0)
-        {
-            individualDrinkValues[rumIndex] = currentGlassValues.Rum;
-        }
+        
         if (temp.Vodka != 0)
         {
-            individualDrinkValues[vodkaIndex] = currentGlassValues.Vodka;
+            individualDrinkValues[index] = currentGlassValues.Vodka;
 
+        }
+        if (temp.Rum != 0)
+        {
+            individualDrinkValues[index] = currentGlassValues.Rum;
+        }
+        if (temp.Tequila != 0)
+        {
+            individualDrinkValues[index] = currentGlassValues.Tequila;
+        }
+        if (temp.Gin != 0)
+        {
+            individualDrinkValues[index] = currentGlassValues.Gin;
+        }
+        if (temp.Whiskey != 0)
+        {
+            individualDrinkValues[index] = currentGlassValues.Whiskey;
         }
         if (temp.Coke != 0)
         {
-            individualDrinkValues[cokeIndex] = currentGlassValues.Coke;
+            individualDrinkValues[index] = currentGlassValues.Coke;
+        }
+        if (temp.Tonic != 0)
+        {
+            individualDrinkValues[index] = currentGlassValues.Tonic;
+        }
+        if (temp.Soda != 0)
+        {
+            individualDrinkValues[index] = currentGlassValues.Soda;
+        }
+        if (temp.Ginger != 0)
+        {
+            individualDrinkValues[index] = currentGlassValues.Ginger;
+        }
+        if (temp.Orange != 0)
+        {
+            individualDrinkValues[index] = currentGlassValues.Orange;
+        }
+        if (temp.LimeJuice != 0)
+        {
+            individualDrinkValues[index] = currentGlassValues.LimeJuice;
+        }
+        if (temp.LemonJuice != 0)
+        {
+            individualDrinkValues[index] = currentGlassValues.LemonJuice;
         }
 
         yield return null;
@@ -171,21 +272,53 @@ public class InstructionLoader : MonoBehaviour
     IEnumerator Score()
     {
         temp = drinks[testIndex];
-        if (temp.Rum != 0)
-        {
-            baseScore -= Math.Abs((int)temp.Rum - (int)Math.Floor(currentGlassValues.Rum));
-            Debug.LogError("Score Rum = " + baseScore);
-        }
         if (temp.Vodka != 0)
         {
             baseScore -= Math.Abs((int)temp.Vodka - (int)Math.Floor(currentGlassValues.Vodka));
             Debug.LogError("Score Vodka = " + baseScore);
 
         }
+        if (temp.Rum != 0)
+        {
+            baseScore -= Math.Abs((int)temp.Rum - (int)Math.Floor(currentGlassValues.Rum));
+            Debug.LogError("Score Rum = " + baseScore);
+        }
+        if (temp.Tequila != 0)
+        {
+            baseScore -= Math.Abs((int)temp.Tequila - (int)Math.Floor(currentGlassValues.Tequila));
+        }
+        if (temp.Gin != 0)
+        {
+            baseScore -= Math.Abs((int)temp.Gin - (int)Math.Floor(currentGlassValues.Gin));
+        }
+        if (temp.Whiskey != 0)
+        {
+            baseScore -= Math.Abs((int)temp.Whiskey - (int)Math.Floor(currentGlassValues.Whiskey));
+        }
         if (temp.Coke != 0)
         {
             baseScore -= (Math.Abs((int)temp.Coke - (int)Math.Floor(currentGlassValues.Coke)))/10;
             Debug.LogError("Score Coke = " + baseScore);
+        }
+        if (temp.Tonic != 0)
+        {
+            baseScore -= Math.Abs((int)temp.Tonic - (int)Math.Floor(currentGlassValues.Tonic))/10;
+        }
+        if (temp.Soda != 0)
+        {
+            baseScore -= Math.Abs((int)temp.Soda - (int)Math.Floor(currentGlassValues.Soda))/10;
+        }
+        if (temp.Ginger != 0)
+        {
+            baseScore -= Math.Abs((int)temp.Ginger - (int)Math.Floor(currentGlassValues.Ginger))/10;
+        }
+        if (temp.Orange != 0)
+        {
+            baseScore -= Math.Abs((int)temp.Orange - (int)Math.Floor(currentGlassValues.Orange))/10;
+        }
+        if (temp.LimeJuice != 0)
+        {
+            baseScore -= Math.Abs((int)temp.LimeJuice - (int)Math.Floor(currentGlassValues.LimeJuice))/10;
         }
         if (baseScore > minScore)
         {

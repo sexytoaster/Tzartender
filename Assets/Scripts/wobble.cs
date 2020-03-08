@@ -63,11 +63,61 @@ public class wobble : MonoBehaviour
         if (collision.gameObject.name == "DropVodka(Clone)")
         {
             currentValues.Vodka += .1f;
-            fillAmount = fillAmount - (float).00005;
+            fillAmount = fillAmount - (float).000025;
+        }
+        if (collision.gameObject.name == "DropRum(Clone)")
+        {
+            currentValues.Rum += .1f;
+            fillAmount = fillAmount - (float).000025;
+        }
+        if (collision.gameObject.name == "DropTequila(Clone)")
+        {
+            currentValues.Tequila += .1f;
+            fillAmount = fillAmount - (float).000025;
+        }
+        if (collision.gameObject.name == "DropGin(Clone)")
+        {
+            currentValues.Gin += .1f;
+            fillAmount = fillAmount - (float).000025;
+        }
+        if (collision.gameObject.name == "DropWhiskey(Clone)")
+        {
+            currentValues.Whiskey += .1f;
+            fillAmount = fillAmount - (float).000025;
         }
         if (collision.gameObject.name == "DropCoke(Clone)")
         {
             currentValues.Coke += 1f;
+            fillAmount = fillAmount - (float).00025;
+        }
+        if (collision.gameObject.name == "DropTonic(Clone)")
+        {
+            currentValues.Tonic += 1f;
+            fillAmount = fillAmount - (float).00025;
+        }
+        if (collision.gameObject.name == "DropSoda(Clone)")
+        {
+            currentValues.Soda += 1f;
+            fillAmount = fillAmount - (float).00025;
+        }
+        if (collision.gameObject.name == "DropGinger(Clone)")
+        {
+            currentValues.Ginger += 1f;
+            fillAmount = fillAmount - (float).00025;
+        }
+        if (collision.gameObject.name == "DropOrange(Clone)")
+        {
+            currentValues.Orange += 1f;
+            fillAmount = fillAmount - (float).00025;
+        }
+        if (collision.gameObject.name == "DropLime(Clone)")
+        {
+            currentValues.LimeJuice += 1f;
+            fillAmount = fillAmount - (float).00025;
+        }
+        if (collision.gameObject.name == "DropLemon(Clone)")
+        {
+            currentValues.LemonJuice += 1f;
             fillAmount = fillAmount - (float).00025;
         }
         if (collision.gameObject.tag == "Liquid")

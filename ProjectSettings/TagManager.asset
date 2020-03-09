@@ -8,6 +8,9 @@ TagManager:
   - Finished
   - FxTemporaire
   - projectile
+  - PlayButton
+  - Manager
+  - Instructions
   layers:
   - Default
   - TransparentFX

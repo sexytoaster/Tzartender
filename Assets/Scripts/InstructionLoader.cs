@@ -35,11 +35,8 @@ public class InstructionLoader : MonoBehaviour
     public int totalScore;
     public DrinkInstructions temp;
     //indexes for the drink
-    public int rumIndex;
-    public int vodkaIndex;
-    public int cokeIndex;
 
-    public int testIndex;
+    public int drinkIndex;
 
     private void Awake()
     {
@@ -111,15 +108,13 @@ public class InstructionLoader : MonoBehaviour
 
     }
     IEnumerator PickDrink()
-    {
-        //index for keeping track of generated drinks, should change later nb****
-        var index = 0;
+    { 
         //testing
-        testIndex = UnityEngine.Random.Range(0, drinks.Count);
+        drinkIndex = UnityEngine.Random.Range(0, drinks.Count);
         individualDrink.Clear();
         individualDrinkValues.Clear();
         //currentGlassValues.Clear();
-        DrinkInstructions temp = drinks[testIndex];
+        DrinkInstructions temp = drinks[drinkIndex];
         if (temp.Vodka != 0)
         {
             individualDrink.Add("Vodka: " + temp.Vodka.ToString());
@@ -191,7 +186,7 @@ public class InstructionLoader : MonoBehaviour
     IEnumerator UpdateValues()
     {
         var index = 0;
-        temp = drinks[testIndex];
+        temp = drinks[drinkIndex];
         
         if (temp.Vodka != 0)
         {
@@ -258,7 +253,7 @@ public class InstructionLoader : MonoBehaviour
     }
     IEnumerator Score()
     {
-        temp = drinks[testIndex];
+        temp = drinks[drinkIndex];
         if (temp.Vodka != 0)
         {
             baseScore -= Math.Abs((int)temp.Vodka - (int)Math.Floor(currentGlassValues.Vodka));

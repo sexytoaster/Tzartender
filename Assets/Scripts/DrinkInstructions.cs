@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//basic drink
+//basic drink structure
 [System.Serializable]
 public class DrinkInstructions
 {

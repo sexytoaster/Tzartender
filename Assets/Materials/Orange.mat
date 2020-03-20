@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: fillablePintGlass
-  m_Shader: {fileID: 4800000, guid: 1abf3ee026eb1af499c5ed45f00c3ad0, type: 3}
+  m_Name: Orange
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,10 +19,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -59,61 +55,23 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - mainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - texture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - FillAmount: 0.43
-    - Rim: 0
-    - RimPower: 0
-    - WobbleX: 0
-    - WobbleZ: 0
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FillAmount: 0.57
     - _GlossMapScale: 1
-    - _Glossiness: 0.5
+    - _Glossiness: 0.49
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Rim: 0.0084
-    - _RimPower: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _WobbleX: 0
-    - _WobbleZ: 0
     - _ZWrite: 1
-    - fillAmount: 0.575
-    - rim: 0
-    - rimPower: 0
-    - wobbleX: 0
-    - wobbleZ: 0
-    - worldPosAdjustedY: 0
     m_Colors:
-    - FoamColor: {r: 1, g: 1, b: 1, a: 1}
-    - RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - Tint: {r: 1, g: 1, b: 1, a: 1}
-    - TopColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.8396226, g: 0.17030083, b: 0.17030083, a: 0.39215687}
+    - _Color: {r: 1, g: 0.8836636, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FoamColor: {r: 0.9665206, g: 0.990566, b: 0.7989943, a: 1}
-    - _RimColor: {r: 1, g: 0, b: 0, a: 1}
-    - _Tint: {r: 0.9529412, g: 0.78951955, b: 0.23921566, a: 1}
-    - _TopColor: {r: 1, g: 0.062745094, b: 0.81519675, a: 1}
-    - aboveColor: {r: 1, g: 1, b: 1, a: 0}
-    - foamColor: {r: 1, g: 0.9009434, b: 0.9009434, a: 1}
-    - offsetColor: {r: 0.1792453, g: 0.1783998, b: 0.1783998, a: 1}
-    - rimColor: {r: 1, g: 1, b: 1, a: 1}
-    - tint: {r: 0.8301887, g: 0.31719473, b: 0.31719473, a: 0.9647059}
-    - topColor: {r: 1, g: 1, b: 1, a: 1}

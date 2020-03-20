@@ -9,7 +9,6 @@
 		[HideInInspector] topColor ("Top Color", Color) = (1,1,1,1)
         [HideInInspector] wobbleX ("WobbleX", Range(-1,1)) = 0.0
         [HideInInspector] wobbleZ ("WobbleZ", Range(-1,1)) = 0.0
-        
     }
  
     SubShader
@@ -51,7 +50,6 @@
          float4 mainTex_ST;
          float fillAmount, wobbleX, wobbleZ;
          float4 topColor,tint, offsetColor;
-      
  
          v2f vert (appdata v)
          {

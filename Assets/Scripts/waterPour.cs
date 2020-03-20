@@ -13,6 +13,7 @@ public class waterPour : MonoBehaviour
     {
         Rigidbody rb = GetComponent<Rigidbody>();
         v3Velocity = rb.velocity;
+
     }
 
     // Update is called once per frame

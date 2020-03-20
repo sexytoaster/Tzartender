@@ -21,7 +21,7 @@ public class PlayButton : MonoBehaviour
     void Update()
     {
         timer = Time.time - startTime;
-        if(timer >= 4)
+        if(timer >= 180)
         {
             playButton.GetComponent<VRButton>().enabled = true;
             foreach (GameObject instruction in Instructions)

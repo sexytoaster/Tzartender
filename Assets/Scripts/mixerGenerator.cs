@@ -5,7 +5,7 @@ using UnityEngine;
 public class mixerGenerator : MonoBehaviour
 {
     public GameObject spawnPoint;
-    public GameObject drinkToSpawn;
+    public List<GameObject> mixers;
     public GameObject door;
     public float smooth;
 
@@ -27,16 +27,40 @@ public class mixerGenerator : MonoBehaviour
     {
         timePassed = timePassed + (Time.deltaTime);
     }
-    public void OnPress()
+    public void OnPress(GameObject sender)
     {
         Debug.Log("Time passed = " + timePassed);
         if(timePassed > 3)
         {
-            StartCoroutine("Door");
+            //StartCoroutine("Door");
             Vector3 spawnPosition = spawnPoint.transform.position;
-            Debug.Log("SteamVR Button pressed!");
-            Instantiate(drinkToSpawn, spawnPosition, Quaternion.identity);
-            timePassed = 0;
+            if (sender.name == "ColaButton")
+            {
+                Instantiate(mixers[0], spawnPosition, Quaternion.identity);
+                timePassed = 0;
+            }
+            if (sender.name == "TonicButton")
+            {
+                Instantiate(mixers[1], spawnPosition, Quaternion.identity);
+                timePassed = 0;
+            }
+            if (sender.name == "SodaButton")
+            {
+                Instantiate(mixers[2], spawnPosition, Quaternion.identity);
+                timePassed = 0;
+            }
+            if (sender.name == "GingerButton")
+            {
+                Instantiate(mixers[3], spawnPosition, Quaternion.identity);
+                timePassed = 0;
+            }
+            if (sender.name == "OrangeButton")
+            {
+                Instantiate(mixers[4], spawnPosition, Quaternion.identity);
+                timePassed = 0;
+            }
+
+
         }
     }
 

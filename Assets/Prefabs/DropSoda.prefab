@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 114119382575127026}
   - component: {fileID: 96142005109770384}
   m_Layer: 4
-  m_Name: DropVodka
+  m_Name: DropSoda
   m_TagString: Liquid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

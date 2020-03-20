@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 114119382575127026}
   - component: {fileID: 96142005109770384}
   m_Layer: 4
-  m_Name: DropVodka
+  m_Name: DropGinger
   m_TagString: Liquid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,7 +140,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 074f5ab7c2ad0b9448714b2f47dbb9bf, type: 2}
+  - {fileID: 2100000, guid: 5d96c2b99839248488dbd1554eeedf01, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -190,7 +190,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.101326115, g: 0.8510072, b: 0.9339623, a: 0}
+      key0: {r: 0.7169812, g: 0.53424877, b: 0.10484158, a: 0}
       key1: {r: 1, g: 1, b: 1, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}

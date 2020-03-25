@@ -5,14 +5,19 @@ using UnityEngine.UI;
 
 public class PlayButton : MonoBehaviour
 {
+    private bool gameStart = false;
     private float startTime;
     private float timer;
+    public Text Timer;
+    public float timerLength = 180;
+    public float countdown;
     private GameObject playButton;
     private GameObject[] Instructions;
     // Start is called before the first frame update
     void Start()
     {
         timer = 0;
+        countdown = timerLength;
         playButton = GameObject.FindGameObjectWithTag("PlayButton");
         Instructions = GameObject.FindGameObjectsWithTag("Instructions");
     }
@@ -20,19 +25,31 @@ public class PlayButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer = Time.time - startTime;
-        if(timer >= 180)
+        if (gameStart == true)
         {
-            playButton.GetComponent<VRButton>().enabled = true;
-            foreach (GameObject instruction in Instructions)
+            timer = Time.time - startTime;
+            countdown = timerLength - timer;
+            int minutes = Mathf.FloorToInt(countdown / 60);
+            int seconds = (int)countdown % 60;
+
+            string text = minutes + ":" + seconds;
+            Timer.text = text;
+            if (timer >= timerLength)
             {
-                instruction.GetComponent<Text>().enabled = false;
+                playButton.GetComponent<VRButton>().enabled = true;
+                foreach (GameObject instruction in Instructions)
+                {
+                    instruction.GetComponent<Text>().enabled = false;
+                }
+                this.gameObject.GetComponent<InstructionLoader>().enabled = false;
+                countdown = timerLength;
+                gameStart = false;
             }
-            this.gameObject.GetComponent<InstructionLoader>().enabled = false;
         }
     }
     public void OnPress()
     {
+        gameStart = true;
         startTime = Time.time;
         playButton.GetComponent<VRButton>().enabled = false;
         foreach(GameObject instruction in Instructions)

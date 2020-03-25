@@ -80,6 +80,7 @@ public class InstructionLoader : MonoBehaviour
         if (drinkMat.GetComponent<DrinkFinished>().EnteredTrigger == true)
         {
             StartCoroutine("Score");
+           // StartCoroutine("EmptyDrink");
             StartCoroutine("PickDrink");
             drinkMat.GetComponent<DrinkFinished>().EnteredTrigger = false;
         }
@@ -251,7 +252,9 @@ public class InstructionLoader : MonoBehaviour
 
         yield return null;
     }
-    IEnumerator Score()
+    
+
+        IEnumerator Score()
     {
         temp = drinks[drinkIndex];
         if (temp.Vodka != 0)

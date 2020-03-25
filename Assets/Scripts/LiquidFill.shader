@@ -3,7 +3,7 @@
     Properties
     {
         tint ("Tint", Color) = (1,1,1,1)
-        mainTex ("Texture", 2D) = "white" {}
+        [PerRendererData] mainTex ("Texture", 2D) = "white" {}
         fillAmount ("Fill Amount", Range(.43,.58)) = 0.0
 		offsetColor ("Offset Top Colour", Color) = (1,1,1,1)
 		[HideInInspector] topColor ("Top Color", Color) = (1,1,1,1)
@@ -14,12 +14,18 @@
     SubShader
     {
         Tags {"Queue"="Transparent"  "DisableBatching" = "True" "RenderType"="Transparent"}
- 
+		//Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" "PreviewType"="Plane" }
+		Blend SrcAlpha OneMinusSrcAlpha
+		Cull Off Lighting Off ZWrite Off Fog { Color (0,0,0,0) }
         Pass
         {
-         Cull Off // we want all faces
-         AlphaToMask On // transparency
-		 Blend SrcAlpha OneMinusSrcAlpha
+		Blend SrcAlpha OneMinusSrcAlpha
+		AlphaToMask On // transparency
+		AlphaTest Off
+		ZWrite Off
+        Cull Off // we want all faces
+         
+		 
          CGPROGRAM
  
  

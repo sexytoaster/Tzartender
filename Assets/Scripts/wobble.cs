@@ -26,12 +26,13 @@ public class wobble : MonoBehaviour
     //overfilling stuff
     public List<GameObject> Emitters;
     public List<GameObject> bottomOfGlass;
-
+    public GameObject drinkMat;
     public DrinkInstructions currentValues;
 
     // Use this for initialization
     void Start()
     {
+        drinkMat = GameObject.FindGameObjectWithTag("Finished");
         rend = GetComponent<Renderer>();
         rend.enabled = false;
         fillAmount = rend.material.GetFloat("fillAmount");
@@ -45,7 +46,11 @@ public class wobble : MonoBehaviour
     }
     private void Update()
     {
-        if(fillAmount >= minFillAmount)
+        if (drinkMat.GetComponent<DrinkFinished>().EnteredTrigger == true)
+        { 
+            StartCoroutine("EmptyDrink");
+        }
+        if (fillAmount >= minFillAmount)
         {
             rend.enabled = false;
         }
@@ -110,7 +115,13 @@ public class wobble : MonoBehaviour
         rend.enabled = true;
         //colour shit to come back to
         Color colour = collision.GetComponent<TrailRenderer>().material.color;
-        rend.material.SetColor("tint", colour);
+        if (colour.a > rend.material.GetColor("tint").a)
+        {
+            StartCoroutine(changeColour(colour)); //
+        }
+        
+        
+       
         if (collision.gameObject.name == "DropVodka(Clone)")
         {
             currentValues.Vodka += .1f;
@@ -212,5 +223,43 @@ public class wobble : MonoBehaviour
         fillChange -= (float).0001;
     }
 
+    IEnumerator changeColour(Color colour)
+    {
+        float t = 0;
+        float duration = 1.5f;
+        float smoothness = .002f;
+        Color initialColour = rend.material.GetColor("tint"); // = ;
+        Color changingColour;
+        Debug.Log("Initial " + initialColour);
+        Debug.Log("Lerping to " + colour);
+        while (t < 1)
+        {
+            changingColour = Color.Lerp(initialColour, colour, t);
+            t += Time.deltaTime / duration;
+            rend.material.SetColor("tint", changingColour);
+            Emitters[1].GetComponent<ParticleSystemRenderer>().material.SetColor("_Color", changingColour);
+            yield return new WaitForSeconds(smoothness);
+        }
+       
+    }
+    IEnumerator EmptyDrink()
+    {
+        currentValues.Vodka = 0;
+        currentValues.Rum = 0;
+        currentValues.Tequila = 0;
+        currentValues.Gin = 0;
+        currentValues.Whiskey = 0;
+        currentValues.Coke = 0;
+        currentValues.Tonic = 0;
+        currentValues.Soda = 0;
+        currentValues.Ginger = 0;
+        currentValues.Orange = 0;
+        currentValues.LimeJuice = 0;
+        currentValues.LemonJuice = 0;
+
+        fillAmount = minFillAmount;
+        fillChange = 0;
+        yield return null;
+    }
 
 }

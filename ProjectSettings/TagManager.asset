@@ -11,6 +11,8 @@ TagManager:
   - PlayButton
   - Manager
   - Instructions
+  - startText
+  - scoreText
   layers:
   - Default
   - TransparentFX

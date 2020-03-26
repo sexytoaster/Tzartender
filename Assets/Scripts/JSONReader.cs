@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿//this script takes in a json file name and loads it as a text asset to be returned to another script
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;

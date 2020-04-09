@@ -61,10 +61,5 @@ public class waterPour : MonoBehaviour
         }
 
     }
-    /*void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Glass")
-            Destroy(gameObject);
-    }*/
 }
 

@@ -1,9 +1,13 @@
-﻿using System.Collections;
+﻿/*this script controls the level of the liquid in the glass, the values for the specific liquids in the glass, the wobble of liquid, 
+and also contains coroutines that control changing the liquids colour and emptying the liquid in the glass when either the player
+puts the glass on the matt or the liquid is all spilled out*/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class wobble : MonoBehaviour
 {
+    //create an empty reference to the renderer of the liquid, as well as floats that control the wobble
     Renderer rend;
     float wobbleX;
     float wobbleZ;
@@ -11,51 +15,57 @@ public class wobble : MonoBehaviour
     float wobbleAddZ;
     float sine;
     float time = 0f;
-    public float fillAmount;
-    public float fillChange;
     public float MaxWobble = 0.07f;
     public float WobbleSpeed = 1f;
     public float Recovery = 1f;
-    public float minFillAmount = .575f;
-    public float totalValues = 0;
     Vector3 lastPos;
     Vector3 velocity;
     Vector3 lastRot;
     Vector3 angularVelocity;
 
-    //overfilling stuff
-    public List<GameObject> Emitters;
-    public List<GameObject> bottomOfGlass;
+    //floats for the fill amount and the change in fill. These values are used by the shader so it can display how full the glass is along
+    //with other parts of the script
+    public float fillAmount;
+    public float fillChange;
+    public float minFillAmount = .575f;
+    public float totalValues = 0;
+
+    //for the colour changing we need a base colour to go back to when the glass is emptied
+    private Color baseColour = new Color(0, 0, 0, 0);
+
+    //for spiling we need a list of empty game objects
+    private List<GameObject> Emitters;
+
+    //reference to the drink mat that ends a round and empties the glass
     public GameObject drinkMat;
+
+    //current values in the glass, of type drinkinstructions
     public DrinkInstructions currentValues;
 
     // Use this for initialization
     void Start()
     {
-        drinkMat = GameObject.FindGameObjectWithTag("Finished");
+        //initialise fillchange, reference to renderer and disable the renderer at start because no liquid in glass
+        fillChange = 0;
         rend = GetComponent<Renderer>();
         rend.enabled = false;
+        /*get current fill amount, get reference to drinkmat and the emitters attatched to the spill script. need this for changing the spilled 
+        liquid colour*/
         fillAmount = rend.material.GetFloat("fillAmount");
-        fillChange = 0;
-        
-        //overfilling stuff
-        foreach (GameObject emitter in Emitters)
-        {
-            emitter.GetComponent<ParticleSystem>().Stop();
-        }
+        drinkMat = GameObject.FindGameObjectWithTag("Finished");
+        Emitters = GameObject.FindGameObjectWithTag("liquidInGlass").GetComponent<Spill>().Emitters;
     }
     private void Update()
     {
-        if (drinkMat.GetComponent<DrinkFinished>().EnteredTrigger == true)
-        { 
+        //if drink has been placed on the mat or the fill amount has gone below the minimum
+        if (drinkMat.GetComponent<DrinkFinished>().EnteredTrigger == true || fillAmount >= minFillAmount)
+        {
+            //hide liquid and start the empty drink coroutine
+            rend.enabled = false;
             StartCoroutine("EmptyDrink");
         }
-        if (fillAmount >= minFillAmount)
-        {
-            rend.enabled = false;
-        }
-        //currentValues.Vodka += 1f;
-        //currentValues.Coke += 1f;
+
+        //math wobble of the liquid as the glass moves 
         time += Time.deltaTime;
         // decrease wobble 
         wobbleAddX = Mathf.Lerp(wobbleAddX, 0, Time.deltaTime * (Recovery));
@@ -81,169 +91,146 @@ public class wobble : MonoBehaviour
         lastPos = transform.position;
         lastRot = transform.rotation.eulerAngles;
 
-        
-        //overfilling and spilling code, use a list of points on the bottom of the glass
-        GameObject currentBottom = bottomOfGlass[0];
-        //loop over this list and determine the lowest point of the glass. make object at that point current bottom
-        foreach (GameObject bottom in bottomOfGlass)
-        {
-            if (bottom.transform.position.y < currentBottom.transform.position.y)
-            {
-                currentBottom = bottom;
-            }
-        }
-        //find out which emitters are below the true bottom of the glass, if they are below the bottom begin emitting
-        foreach (GameObject emitter in Emitters)
-        {
-            if(emitter.transform.position.y > currentBottom.transform.position.y + fillChange || fillAmount >= minFillAmount)
-            {
-                //dont emitt
-                emitter.GetComponent<ParticleSystem>().Play();
-            }
-            else
-            {
-                //emitt
-                //go to script that deals with values in glasses when spilling
-                adjustValuesOnPour();
-            }
-        }
+        //set fill amount
         rend.material.SetFloat("fillAmount", fillAmount);
     }
 
     void OnTriggerEnter(Collider collision)
     {
-        rend.enabled = true;
-        //colour shit to come back to
-        Color colour = collision.GetComponent<TrailRenderer>().material.color;
-        if (colour.a > rend.material.GetColor("tint").a)
+        //if an object collides with the liquid object
+        //if it is tagged with liquid
+        if(collision.gameObject.tag == "Liquid")
         {
-            StartCoroutine(changeColour(colour)); //
-        }
-        
-        
-       
-        if (collision.gameObject.name == "DropVodka(Clone)")
-        {
-            currentValues.Vodka += .1f;
-            fillAmount = fillAmount - (float).000025;
-            fillChange += (float).000025;
-        }
-        if (collision.gameObject.name == "DropRum(Clone)")
-        {
-            currentValues.Rum += .1f;
-            fillAmount = fillAmount - (float).000025;
-            fillChange += (float).000025;
-        }
-        if (collision.gameObject.name == "DropTequila(Clone)")
-        {
-            currentValues.Tequila += .1f;
-            fillAmount = fillAmount - (float).000025;
-            fillChange += (float).000025;
-        }
-        if (collision.gameObject.name == "DropGin(Clone)")
-        {
-            currentValues.Gin += .1f;
-            fillAmount = fillAmount - (float).000025;
-            fillChange += (float).000025;
-        }
-        if (collision.gameObject.name == "DropWhiskey(Clone)")
-        {
-            currentValues.Whiskey += .1f;
-            fillAmount = fillAmount - (float).000025;
-            fillChange += (float).000025;
-        }
-        if (collision.gameObject.name == "DropCoke(Clone)")
-        {
-            currentValues.Coke += 1f;
-            fillAmount = fillAmount - (float).00025;
-            fillChange += (float).00025;
-        }
-        if (collision.gameObject.name == "DropTonic(Clone)")
-        {
-            currentValues.Tonic += 1f;
-            fillAmount = fillAmount - (float).00025;
-            fillChange += (float).00025;
-        }
-        if (collision.gameObject.name == "DropSoda(Clone)")
-        {
-            currentValues.Soda += 1f;
-            fillAmount = fillAmount - (float).00025;
-            fillChange += (float).00025;
-        }
-        if (collision.gameObject.name == "DropGinger(Clone)")
-        {
-            currentValues.Ginger += 1f;
-            fillAmount = fillAmount - (float).00025;
-            fillChange += (float).00025;
-        }
-        if (collision.gameObject.name == "DropOrange(Clone)")
-        {
-            currentValues.Orange += 1f;
-            fillAmount = fillAmount - (float).00025;
-            fillChange += (float).00025;
-        }
-        if (collision.gameObject.name == "DropLime(Clone)")
-        {
-            currentValues.LimeJuice += 1f;
-            fillAmount = fillAmount - (float).00025;
-            fillChange += (float).00025;
-        }
-        if (collision.gameObject.name == "DropLemon(Clone)")
-        {
-            currentValues.LemonJuice += 1f;
-            fillAmount = fillAmount - (float).00025;
-            fillChange += (float).00025;
-        }
-        if (collision.gameObject.tag == "Liquid")
-        {
+            //render the liquid in the glass
+            rend.enabled = true;
+            //get the colour of the liquid that hit it
+            Color colour = collision.GetComponent<TrailRenderer>().material.color;
+            //if the transparency of that colour is lower than what is currently in the glass
+            if (colour.a > rend.material.GetColor("tint").a)
+            {
+                //change colour
+                StartCoroutine(changeColour(colour));
+            }
             
-            //If the GameObject's name matches the one you suggest, decrease ammount hidden
-            rend.material.SetFloat("fillAmount", fillAmount);
-            Destroy(collision.gameObject);
+            /*I could not find a cleaner soloution than to check each name individually, unfortunately this leaves a lot of if statements one after the other
+             this is something I should come back to*/
+
+            //check if name of colliding object matches 
+            if (collision.gameObject.name == "DropVodka(Clone)")
+            {
+                /*if it does, increase its value in the glass, decrease fill amount and increase fill change
+                fill amount works in reverse, the smaller it is the more of the liquid will show
+                repeat for all possible liquids*/
+                currentValues.Vodka += .1f;
+                fillAmount = fillAmount - (float).000025;
+                fillChange += (float).000025;
+            }
+            if (collision.gameObject.name == "DropRum(Clone)")
+            {
+                currentValues.Rum += .1f;
+                fillAmount = fillAmount - (float).000025;
+                fillChange += (float).000025;
+            }
+            if (collision.gameObject.name == "DropTequila(Clone)")
+            {
+                currentValues.Tequila += .1f;
+                fillAmount = fillAmount - (float).000025;
+                fillChange += (float).000025;
+            }
+            if (collision.gameObject.name == "DropGin(Clone)")
+            {
+                currentValues.Gin += .1f;
+                fillAmount = fillAmount - (float).000025;
+                fillChange += (float).000025;
+            }
+            if (collision.gameObject.name == "DropWhiskey(Clone)")
+            {
+                currentValues.Whiskey += .1f;
+                fillAmount = fillAmount - (float).000025;
+                fillChange += (float).000025;
+            }
+            if (collision.gameObject.name == "DropCoke(Clone)")
+            {
+                currentValues.Coke += 1f;
+                fillAmount = fillAmount - (float).00025;
+                fillChange += (float).00025;
+            }
+            if (collision.gameObject.name == "DropTonic(Clone)")
+            {
+                currentValues.Tonic += 1f;
+                fillAmount = fillAmount - (float).00025;
+                fillChange += (float).00025;
+            }
+            if (collision.gameObject.name == "DropSoda(Clone)")
+            {
+                currentValues.Soda += 1f;
+                fillAmount = fillAmount - (float).00025;
+                fillChange += (float).00025;
+            }
+            if (collision.gameObject.name == "DropGinger(Clone)")
+            {
+                currentValues.Ginger += 1f;
+                fillAmount = fillAmount - (float).00025;
+                fillChange += (float).00025;
+            }
+            if (collision.gameObject.name == "DropOrange(Clone)")
+            {
+                currentValues.Orange += 1f;
+                fillAmount = fillAmount - (float).00025;
+                fillChange += (float).00025;
+            }
+            if (collision.gameObject.name == "DropLime(Clone)")
+            {
+                currentValues.LimeJuice += 1f;
+                fillAmount = fillAmount - (float).00025;
+                fillChange += (float).00025;
+            }
+            if (collision.gameObject.name == "DropLemon(Clone)")
+            {
+                currentValues.LemonJuice += 1f;
+                fillAmount = fillAmount - (float).00025;
+                fillChange += (float).00025;
+            }
+            if (collision.gameObject.tag == "Liquid")
+            {
+                //for all drops that hit, set the fill amount and destroy the drop
+                rend.material.SetFloat("fillAmount", fillAmount);
+                Destroy(collision.gameObject);
+            }
         }
-
     }
-
-    void adjustValuesOnPour()
-    {
-        totalValues = currentValues.Vodka + currentValues.Rum + currentValues.Tequila + currentValues.Gin + currentValues.Whiskey + currentValues.Coke + currentValues.Tonic + currentValues.Soda + currentValues.Orange + currentValues.Ginger + currentValues.LimeJuice + currentValues.LemonJuice;
-        currentValues.Vodka -= currentValues.Vodka / totalValues * .4f;
-        currentValues.Rum -= currentValues.Rum / totalValues * .4f;
-        currentValues.Tequila -= currentValues.Tequila / totalValues * .4f;
-        currentValues.Gin -= currentValues.Gin / totalValues * .4f;
-        currentValues.Whiskey -= currentValues.Whiskey / totalValues * .4f;
-        currentValues.Coke -= currentValues.Coke / totalValues * .4f;
-        currentValues.Tonic -= currentValues.Tonic / totalValues * .4f;
-        currentValues.Soda -= currentValues.Soda / totalValues * .4f;
-        currentValues.Ginger -= currentValues.Ginger / totalValues * .4f;
-        currentValues.Orange -= currentValues.Orange / totalValues * .4f;
-        currentValues.LimeJuice -= currentValues.LimeJuice / totalValues * .4f;
-        currentValues.LemonJuice -= currentValues.LemonJuice / totalValues * .4f;
-        fillAmount += (float).0001;
-        fillChange -= (float).0001;
-    }
-
+    //coroutine for changing the colour gradully
     IEnumerator changeColour(Color colour)
     {
+        //floats for time duration and smoothness
         float t = 0;
         float duration = 1.5f;
         float smoothness = .002f;
-        Color initialColour = rend.material.GetColor("tint"); // = ;
+        //get starting colour and an empty colour to hold the changing colour
+        Color initialColour = rend.material.GetColor("tint");
         Color changingColour;
-        Debug.Log("Initial " + initialColour);
-        Debug.Log("Lerping to " + colour);
+        //for 1 second
         while (t < 1)
         {
+            //set changing colour to a lerp between initial colour and desired colour - increment time 
             changingColour = Color.Lerp(initialColour, colour, t);
             t += Time.deltaTime / duration;
+            //set material to changing colour and set each particle system colour in Spill to the changing colour
             rend.material.SetColor("tint", changingColour);
-            Emitters[1].GetComponent<ParticleSystemRenderer>().material.SetColor("_Color", changingColour);
+            foreach(GameObject emitter in Emitters)
+            {
+                emitter.GetComponent<ParticleSystemRenderer>().material.SetColor("_Color", changingColour);
+            }
+            
             yield return new WaitForSeconds(smoothness);
         }
        
     }
+    //for emptying the drink
     IEnumerator EmptyDrink()
     {
+        //I couldnt find a way to loop through an object so again it looks a bit clunky. Will work on solution in future
+        //set all values in the glass to 0
         currentValues.Vodka = 0;
         currentValues.Rum = 0;
         currentValues.Tequila = 0;
@@ -256,9 +243,18 @@ public class wobble : MonoBehaviour
         currentValues.Orange = 0;
         currentValues.LimeJuice = 0;
         currentValues.LemonJuice = 0;
-
+        //set fillAmount to the minimum and reset fillchange
         fillAmount = minFillAmount;
         fillChange = 0;
+        //set the tint back to a base colour with full transparency so colourchange will work after glass is emptied
+        rend.material.SetColor("tint", baseColour);
+        
+        /*this is error checking to see if instructionloader is enabled or not. It is not enabled in between rounds so if a player wants to mess around and fill
+        a drink, after it is emptied it wont fill up again until round start without this piece of code*/
+        if (GameObject.FindGameObjectWithTag("Manager").GetComponent<InstructionLoader>().enabled == false)
+        {
+            drinkMat.GetComponent<DrinkFinished>().EnteredTrigger = false;
+        }
         yield return null;
     }
 

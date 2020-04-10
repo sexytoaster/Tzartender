@@ -30,6 +30,11 @@ public class wobble : MonoBehaviour
     public float minFillAmount = .575f;
     public float totalValues = 0;
 
+    private float currentValueSpirit = .1f;
+    private float currentValueMixer = 1f;
+    private float valueChangeSpirit = .000025f;
+    private float valueChangeMixer = .00025f;
+    
     //for the colour changing we need a base colour to go back to when the glass is emptied
     private Color baseColour = new Color(0, 0, 0, 0);
 
@@ -121,75 +126,75 @@ public class wobble : MonoBehaviour
                 /*if it does, increase its value in the glass, decrease fill amount and increase fill change
                 fill amount works in reverse, the smaller it is the more of the liquid will show
                 repeat for all possible liquids*/
-                currentValues.Vodka += .1f;
-                fillAmount = fillAmount - (float).000025;
-                fillChange += (float).000025;
+                currentValues.Vodka += currentValueSpirit;
+                fillAmount = fillAmount - valueChangeSpirit;
+                fillChange += valueChangeSpirit;
             }
             if (collision.gameObject.name == "DropRum(Clone)")
             {
-                currentValues.Rum += .1f;
-                fillAmount = fillAmount - (float).000025;
-                fillChange += (float).000025;
+                currentValues.Rum += currentValueSpirit;
+                fillAmount = fillAmount - valueChangeSpirit;
+                fillChange += valueChangeSpirit;
             }
             if (collision.gameObject.name == "DropTequila(Clone)")
             {
-                currentValues.Tequila += .1f;
-                fillAmount = fillAmount - (float).000025;
-                fillChange += (float).000025;
+                currentValues.Tequila += currentValueSpirit;
+                fillAmount = fillAmount - valueChangeSpirit;
+                fillChange += valueChangeSpirit;
             }
             if (collision.gameObject.name == "DropGin(Clone)")
             {
-                currentValues.Gin += .1f;
-                fillAmount = fillAmount - (float).000025;
-                fillChange += (float).000025;
+                currentValues.Gin += currentValueSpirit;
+                fillAmount = fillAmount - valueChangeSpirit;
+                fillChange += valueChangeSpirit;
             }
             if (collision.gameObject.name == "DropWhiskey(Clone)")
             {
-                currentValues.Whiskey += .1f;
-                fillAmount = fillAmount - (float).000025;
-                fillChange += (float).000025;
+                currentValues.Whiskey += currentValueSpirit;
+                fillAmount = fillAmount - valueChangeSpirit;
+                fillChange += valueChangeSpirit;
             }
             if (collision.gameObject.name == "DropCoke(Clone)")
             {
-                currentValues.Coke += 1f;
-                fillAmount = fillAmount - (float).00025;
-                fillChange += (float).00025;
+                currentValues.Coke += currentValueMixer;
+                fillAmount = fillAmount - valueChangeMixer;
+                fillChange += valueChangeMixer;
             }
             if (collision.gameObject.name == "DropTonic(Clone)")
             {
-                currentValues.Tonic += 1f;
-                fillAmount = fillAmount - (float).00025;
-                fillChange += (float).00025;
+                currentValues.Tonic += currentValueMixer;
+                fillAmount = fillAmount - valueChangeMixer;
+                fillChange += valueChangeMixer;
             }
             if (collision.gameObject.name == "DropSoda(Clone)")
             {
-                currentValues.Soda += 1f;
-                fillAmount = fillAmount - (float).00025;
-                fillChange += (float).00025;
+                currentValues.Soda += currentValueMixer;
+                fillAmount = fillAmount - valueChangeMixer;
+                fillChange += valueChangeMixer;
             }
             if (collision.gameObject.name == "DropGinger(Clone)")
             {
-                currentValues.Ginger += 1f;
-                fillAmount = fillAmount - (float).00025;
-                fillChange += (float).00025;
+                currentValues.Ginger += currentValueMixer;
+                fillAmount = fillAmount - valueChangeMixer;
+                fillChange += valueChangeMixer;
             }
             if (collision.gameObject.name == "DropOrange(Clone)")
             {
-                currentValues.Orange += 1f;
-                fillAmount = fillAmount - (float).00025;
-                fillChange += (float).00025;
+                currentValues.Orange += currentValueMixer;
+                fillAmount = fillAmount - valueChangeMixer;
+                fillChange += valueChangeMixer;
             }
             if (collision.gameObject.name == "DropLime(Clone)")
             {
-                currentValues.LimeJuice += 1f;
-                fillAmount = fillAmount - (float).00025;
-                fillChange += (float).00025;
+                currentValues.LimeJuice += currentValueMixer;
+                fillAmount = fillAmount - valueChangeMixer;
+                fillChange += valueChangeMixer;
             }
             if (collision.gameObject.name == "DropLemon(Clone)")
             {
-                currentValues.LemonJuice += 1f;
-                fillAmount = fillAmount - (float).00025;
-                fillChange += (float).00025;
+                currentValues.LemonJuice += currentValueMixer;
+                fillAmount = fillAmount - valueChangeMixer;
+                fillChange += valueChangeMixer;
             }
             if (collision.gameObject.tag == "Liquid")
             {

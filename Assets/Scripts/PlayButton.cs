@@ -12,7 +12,7 @@ public class PlayButton : MonoBehaviour
     private bool gameStart = false;
     private float startTime;
     private float timer;
-    private float timerLength = 21;
+    private float timerLength = 120;
     private float countdown;
     public Text Timer;
     public Text Score;

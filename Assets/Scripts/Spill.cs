@@ -11,6 +11,7 @@ public class Spill : MonoBehaviour
     private float fillChange = 0;
     private float fillAmount;
     private float minFillAmount;
+    private float fillModifier = .4f;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,18 +62,18 @@ public class Spill : MonoBehaviour
     void adjustValuesOnPour()
     {
         totalValues = currentValues.Vodka + currentValues.Rum + currentValues.Tequila + currentValues.Gin + currentValues.Whiskey + currentValues.Coke + currentValues.Tonic + currentValues.Soda + currentValues.Orange + currentValues.Ginger + currentValues.LimeJuice + currentValues.LemonJuice;
-        currentValues.Vodka -= currentValues.Vodka / totalValues * .4f;
-        currentValues.Rum -= currentValues.Rum / totalValues * .4f;
-        currentValues.Tequila -= currentValues.Tequila / totalValues * .4f;
-        currentValues.Gin -= currentValues.Gin / totalValues * .4f;
-        currentValues.Whiskey -= currentValues.Whiskey / totalValues * .4f;
-        currentValues.Coke -= currentValues.Coke / totalValues * .4f;
-        currentValues.Tonic -= currentValues.Tonic / totalValues * .4f;
-        currentValues.Soda -= currentValues.Soda / totalValues * .4f;
-        currentValues.Ginger -= currentValues.Ginger / totalValues * .4f;
-        currentValues.Orange -= currentValues.Orange / totalValues * .4f;
-        currentValues.LimeJuice -= currentValues.LimeJuice / totalValues * .4f;
-        currentValues.LemonJuice -= currentValues.LemonJuice / totalValues * .4f;
+        currentValues.Vodka -= currentValues.Vodka / totalValues * fillModifier;
+        currentValues.Rum -= currentValues.Rum / totalValues * fillModifier;
+        currentValues.Tequila -= currentValues.Tequila / totalValues * fillModifier;
+        currentValues.Gin -= currentValues.Gin / totalValues * fillModifier;
+        currentValues.Whiskey -= currentValues.Whiskey / totalValues * fillModifier;
+        currentValues.Coke -= currentValues.Coke / totalValues * fillModifier;
+        currentValues.Tonic -= currentValues.Tonic / totalValues * fillModifier;
+        currentValues.Soda -= currentValues.Soda / totalValues * fillModifier;
+        currentValues.Ginger -= currentValues.Ginger / totalValues * fillModifier;
+        currentValues.Orange -= currentValues.Orange / totalValues * fillModifier;
+        currentValues.LimeJuice -= currentValues.LimeJuice / totalValues * fillModifier;
+        currentValues.LemonJuice -= currentValues.LemonJuice / totalValues * fillModifier;
         fillAmount += (float).0001;
         fillChange -= (float).0001;
     }

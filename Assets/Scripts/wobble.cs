@@ -70,6 +70,7 @@ public class wobble : MonoBehaviour
             StartCoroutine("EmptyDrink");
         }
 
+        //the following code is taken from https://www.patreon.com/posts/quick-game-art-18245226, credit going to Minions art for lines 75-98
         //math wobble of the liquid as the glass moves 
         time += Time.deltaTime;
         // decrease wobble 

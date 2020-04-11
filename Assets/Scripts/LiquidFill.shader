@@ -1,4 +1,6 @@
-﻿Shader "Unlit/Liquid"
+﻿//this shader is adapted from a shader created by Minion art. The original can be found here https://www.patreon.com/posts/quick-game-art-18245226
+
+Shader "Unlit/Liquid"
 {
     Properties
     {
